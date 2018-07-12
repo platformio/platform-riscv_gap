@@ -2,11 +2,6 @@ language: python
 python:
   - "2.7"
 
-matrix:
-  include:
-    - os: osx
-      language: generic
-  
 env:
   - PLATFORMIO_PROJECT_DIR=examples/gapuino-mbed-driver-cpp-raw-serial
   - PLATFORMIO_PROJECT_DIR=examples/gapuino-mbed-driver-hyper-flash
@@ -23,9 +18,14 @@ env:
   - PLATFORMIO_PROJECT_DIR=examples/gapuino-pulp-os-kernel-dma
 
 install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then curl -fsSL https://bootstrap.pypa.io/get-pip.py | sudo python; fi
   - pip install -U https://github.com/platformio/platformio/archive/develop.zip
   - platformio platform install file://.
 
+os:
+ - linux
+ - osx
+  
 script:
   - platformio run -d $PLATFORMIO_PROJECT_DIR
 
