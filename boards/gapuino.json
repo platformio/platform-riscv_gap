@@ -1,0 +1,21 @@
+{
+  "build": {
+    "f_cpu": "250000000L",
+    "extra_flags": "-D__GAP8__",
+    "ldscript": "GAP8.ld",
+    "march": "rv32imcxgap8",
+    "target": "GWT",
+    "variant": "GAP8"
+  },
+  "frameworks": [
+    "mbed",
+    "pulp-os"
+  ],
+  "name": "GAPUINO GAP8 development board",
+  "upload": {
+    "maximum_ram_size": 8388608,
+    "maximum_size": 67108864
+  },
+  "url": "https://greenwaves-technologies.com/product/gapduino/",
+  "vendor": "GreenWaves Technologies"
+}

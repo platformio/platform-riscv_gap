@@ -1,0 +1,41 @@
+{
+  "name": "riscv_gap",
+  "title": "RISC-V GAP",
+  "description": "GreenWaves’ GAP8 IoT application processor enables the cost-effective development, deployment and autonomous operation of intelligent sensing devices that capture, analyze, classify and act on the fusion of rich data sources such as images, sounds or vibrations.",
+  "url": "https://greenwaves-technologies.com/en/gap8-product/",
+  "homepage": "http://platformio.org/platforms/riscv_gap",
+  "license": "Apache-2.0",
+  "engines": {
+    "platformio": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pioplus/platform-riscv_gap.git"
+  },
+  "version": "0.1.0",
+  "packageRepositories": [
+    "https://dl.bintray.com/platformio/dl-packages/manifest.json",
+    "http://dl.platformio.org/packages/manifest.json"
+  ],
+  "frameworks": {
+    "mbed": {
+      "package": "framework-gap_sdk",
+      "script": "builder/frameworks/mbed.py"
+    },
+    "pulp-os": {
+      "package": "framework-gap_sdk",
+      "script": "builder/frameworks/pulp-os.py"
+    }
+  },
+  "packages": {
+    "framework-gap_sdk": {
+      "optional": true,
+      "type": "framework",
+      "version": "https://github.com/pioplus/gap_sdk"
+    },
+    "toolchain-riscv-pulp": {
+      "type": "toolchain",
+      "version": "~1.70101.0"
+    }
+  }
+}
