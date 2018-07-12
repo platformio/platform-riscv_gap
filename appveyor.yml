@@ -25,6 +25,10 @@ install:
 test_script:
 - cmd: platformio run -d %PLATFORMIO_PROJECT_DIR%
 
+platform:
+- x64
+- x86
+
 notifications:
   - provider: Slack
     incoming_webhook:
