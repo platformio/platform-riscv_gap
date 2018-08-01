@@ -12,10 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 from os.path import isdir, join
 
-from SCons.Script import (ARGUMENTS, COMMAND_LINE_TARGETS, AlwaysBuild,
-                          Default, DefaultEnvironment)
+from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
+                          DefaultEnvironment)
 
 
 env = DefaultEnvironment()
@@ -118,7 +119,7 @@ if upload_protocol == "ftdi":
             "wait"
         ],
 
-        UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS' #"$PYTHONEXE"
+        UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS'
     )
 
     upload_actions = [
