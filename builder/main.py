@@ -93,7 +93,7 @@ upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 debug_tools = board_config.get("debug.tools", {})
 upload_actions = []
 
-if upload_protocol == "ft2232h":
+if upload_protocol == "ftdi":
     env.Replace(
         FLASHUPLOADER=join(
             platform.get_package_dir("tool-pulp-debug-bridge") or "", "bin", "plpbridge"),
@@ -118,7 +118,7 @@ if upload_protocol == "ft2232h":
             "wait"
         ],
 
-        UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS' #"$PYTHONEXE" 
+        UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS' #"$PYTHONEXE"
     )
 
     upload_actions = [
