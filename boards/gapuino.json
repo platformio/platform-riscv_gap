@@ -1,11 +1,36 @@
 {
   "build": {
-    "f_cpu": "250000000L",
     "extra_flags": "-D__GAP8__",
+    "f_cpu": "250000000L",
     "ldscript": "GAP8.ld",
     "march": "rv32imcxgap8",
     "target": "GWT",
     "variant": "GAP8"
+  },
+  "debug": {
+    "tools": {
+      "ftdi": {
+        "onboard": true,
+        "server": {
+          "arguments": [
+            "plpbridge",
+            "--chip",
+            "gap",
+            "--cable",
+            "ftdi@digilent",
+            "--debug",
+            "--boot-mode",
+            "jtag",
+            "ioloop",
+            "start",
+            "gdb",
+            "wait"
+          ],
+          "executable": "$PYTHONEXE",
+          "package": "tool-pulp-debug-bridge"
+        }
+      }
+    }
   },
   "frameworks": [
     "mbed",
@@ -15,7 +40,7 @@
   "upload": {
     "maximum_ram_size": 8388608,
     "maximum_size": 67108864,
-    "protocol": "ft2232h"
+    "protocol": "ftdi"
   },
   "url": "https://greenwaves-technologies.com/product/gapduino/",
   "vendor": "GreenWaves Technologies"
