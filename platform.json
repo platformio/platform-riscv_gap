@@ -29,13 +29,16 @@
   },
   "packages": {
     "framework-gap_sdk": {
-      "optional": true,
       "type": "framework",
       "version": "https://github.com/pioplus/gap_sdk"
     },
     "toolchain-riscv-pulp": {
       "type": "toolchain",
       "version": "~1.70101.0"
+    },
+    "tool-pulp-debug-bridge": {
+      "type": "uploader",
+      "version": "~0.1.0"
     }
   }
 }

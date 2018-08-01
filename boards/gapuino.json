@@ -14,7 +14,8 @@
   "name": "GAPUINO GAP8 development board",
   "upload": {
     "maximum_ram_size": 8388608,
-    "maximum_size": 67108864
+    "maximum_size": 67108864,
+    "protocol": "ft2232h"
   },
   "url": "https://greenwaves-technologies.com/product/gapduino/",
   "vendor": "GreenWaves Technologies"
