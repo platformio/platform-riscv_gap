@@ -96,35 +96,22 @@ upload_actions = []
 
 if upload_protocol == "ftdi":
     env.Replace(
-        FLASHUPLOADER=join(
-            platform.get_package_dir("tool-pulp-debug-bridge") or "", "bin", "plpbridge"),
-        FLASHUPLOADERFLAGS=[
-            "--flash-image=$SOURCE",
-            "--cable=ftdi@digilent",
-            "--boot-mode=jtag",
-            "--chip=gap",
-            "flash",
-            "wait"
-        ],
-        FLASHUPLOADCMD='"$PYTHONEXE" $FLASHUPLOADER $FLASHUPLOADERFLAGS',
-
         UPLOADER=join(
             platform.get_package_dir("tool-pulp-debug-bridge") or "", "bin", "plpbridge"),
         UPLOADERFLAGS=[
+            "--debug",
+            "--verbose=3",
             "--cable=ftdi@digilent",
-            "--boot-mode=jtag_hyper",
             "--chip=gap",
-            "load",
-            "start",
-            "wait"
+            "--boot-mode=jtag",
+            "--binary", "$SOURCE",
+            "load", "start", "wait"
         ],
-
         UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS'
     )
 
     upload_actions = [
-        env.VerboseAction("$FLASHUPLOADCMD", "Uploading $SOURCE"),
-        env.VerboseAction("$UPLOADCMD", "Booting $SOURCE")
+        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
     ]
 
 # custom upload tool
@@ -134,7 +121,7 @@ elif "UPLOADCMD" in env:
 else:
     sys.stderr.write("Warning! Unknown upload protocol %s\n" % upload_protocol)
 
-AlwaysBuild(env.Alias("upload", target_img, upload_actions))
+AlwaysBuild(env.Alias("upload", target_elf, upload_actions))
 
 #
 # Setup default targets
