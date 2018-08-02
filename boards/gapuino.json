@@ -10,17 +10,31 @@
   "debug": {
     "tools": {
       "ftdi": {
+        "init_cmds": [
+          "define pio_reset_halt_target",
+          "    monitor reset halt",
+          "end",
+          "define pio_reset_target",
+          "    monitor reset",
+          "end",
+          "target remote $DEBUG_PORT",
+          "$INIT_BREAK",
+          "$LOAD_CMD",
+          "pio_reset_halt_target"
+        ],
+        "load_cmd": " ",
         "onboard": true,
+        "port": ":1234",
         "server": {
           "arguments": [
-            "plpbridge",
-            "--chip",
-            "gap",
-            "--cable",
-            "ftdi@digilent",
+            "bin/plpbridge",
+            "--verbose=3",
+            "--chip=gap",
+            "--cable=ftdi@digilent",
             "--debug",
-            "--boot-mode",
-            "jtag",
+            "--boot-mode=jtag",
+            "--binary",
+            "$PROG_PATH",
             "ioloop",
             "start",
             "gdb",
