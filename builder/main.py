@@ -74,8 +74,8 @@ else:
     target_elf = env.BuildProgram()
     target_img = env.ElfToImg(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
-AlwaysBuild(env.Alias("nobuild", target_img))
-target_buildprog = env.Alias("buildprog", target_img, target_img)
+AlwaysBuild(env.Alias("nobuild", target_elf))
+target_buildprog = env.Alias("buildprog", target_elf, target_elf)
 
 #
 # Target: Print binary size
