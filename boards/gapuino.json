@@ -28,7 +28,7 @@
         "server": {
           "arguments": [
             "bin/plpbridge",
-            "--verbose=3",
+            "--verbose=0",
             "--chip=gap",
             "--cable=ftdi@digilent",
             "--debug",
