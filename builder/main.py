@@ -13,11 +13,13 @@
 # limitations under the License.
 
 import sys
+from os import listdir
 from os.path import isdir, join
 
 from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
                           DefaultEnvironment)
 
+from platformio import util
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
@@ -51,31 +53,42 @@ if env.get("PROGNAME", "program") == "program":
 
 env.Append(
     BUILDERS=dict(
-        ElfToImg=Builder(
+        DataToBin=Builder(
             action=env.VerboseAction(" ".join([
                 "$PYTHONEXE",
-                join(SDK_DIR, "tools" ,"gap_flasher", "bin", "flashImageBuilder"),
+                join(SDK_DIR, "tools", "gap_flasher", "bin", "flashImageBuilder"),
                 "--flash-boot-binary", "$SOURCES",
+                "--comp-dir-rec=%s" % util.get_projectdata_dir(),
                 "--raw", "$TARGET"
-            ]), "Building $TARGET"),
-            suffix=".raw"
+            ]), "Building data image $TARGET"),
+            suffix=".bin"
         )
     )
 )
 
 #
-# Target: Build executable, linkable firmware and raw image
+# Target: Build executable, linkable firmware and data image
 #
+
+data_available = isdir(util.get_projectdata_dir()) and listdir(
+    util.get_projectdata_dir())
+
+if data_available:
+    target_flasher = env.SConscript("flasher.py", exports="env")
 
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
-    target_img = join("$BUILD_DIR", "${PROGNAME}.raw")
+    target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
 else:
     target_elf = env.BuildProgram()
-    target_img = env.ElfToImg(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
-AlwaysBuild(env.Alias("nobuild", target_elf))
-target_buildprog = env.Alias("buildprog", target_elf, target_elf)
+if data_available:
+    target_firm = env.DataToBin(join("$BUILD_DIR", "data"), target_elf)
+else:
+    target_firm = target_elf
+
+AlwaysBuild(env.Alias("nobuild", target_firm))
+target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 
 #
 # Target: Print binary size
@@ -109,6 +122,17 @@ if upload_protocol == "ftdi":
         ],
         UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS'
     )
+
+    if data_available:
+        env.Append(
+            UPLOADERFLAGS=[
+                "--flash-image=", join("$BUILD_DIR", "data.bin"),
+                "flash",
+                "--flasher", join("$BUILD_DIR", "flasher.elf")
+            ]
+        )
+
+    env.Append(UPLOADERFLAGS=["load", "start", "wait"])
 
     upload_actions = [
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
