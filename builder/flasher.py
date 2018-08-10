@@ -18,12 +18,11 @@ from SCons.Script import Import, Return, SConscript
 
 Import("env")
 
-SDK_DIR = env.PioPlatform().get_package_dir("framework-gap_sdk")
+fenv = env.Clone()
+SDK_DIR = fenv.PioPlatform().get_package_dir("framework-gap_sdk")
 assert SDK_DIR and isdir(SDK_DIR)
 
-SConscript("frameworks/pulp-os.py", exports={"env": env})
-
-fenv = env.Clone()
+SConscript("frameworks/pulp-os.py", exports={"env": fenv})
 
 fenv.Append(
     CPPDEFINES=["fileIO"],
@@ -42,4 +41,4 @@ flash = fenv.Program(
         src_filter="+<*> -<test_FlashImg>"
     ))
 
-Return(flash)
+Return("flash")

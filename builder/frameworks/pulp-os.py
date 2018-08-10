@@ -14,12 +14,11 @@
 
 from os.path import join
 
-from SCons.Script import DefaultEnvironment, SConscript
+from SCons.Script import Import, SConscript
 
-env = DefaultEnvironment()
+Import("env")
 
 SConscript(
-    join(DefaultEnvironment().PioPlatform().get_package_dir(
-        "framework-gap_sdk"), "tools", "platformio", "build-pulp-os.py"),
-    exports="env"
-)
+    join(env.PioPlatform().get_package_dir("framework-gap_sdk"), "tools",
+         "platformio", "build-pulp-os.py"),
+    exports={"env": env})
