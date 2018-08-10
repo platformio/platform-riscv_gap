@@ -17,8 +17,10 @@ environment:
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-pulp-os-kernel-dma"
 
 install:
+- if %PLATFORM% == x64 SET PATH=C:\Python27-x64;C:\Python27-x64\Scripts;%PATH%
+- if %PLATFORM% == x86 SET PATH=%PATH%;C:\Python27\Scripts
+- cmd: python --version
 - cmd: git submodule update --init --recursive
-- cmd: SET PATH=%PATH%;C:\Python27\Scripts
 - cmd: pip install -U https://github.com/platformio/platformio/archive/develop.zip
 - cmd: platformio platform install file://.
 
