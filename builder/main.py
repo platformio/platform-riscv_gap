@@ -84,6 +84,7 @@ else:
 
 if data_available:
     target_firm = env.DataToBin(join("$BUILD_DIR", "data"), target_elf)
+    env.Depends(target_firm, target_flasher)
 else:
     target_firm = target_elf
 
@@ -117,8 +118,7 @@ if upload_protocol == "ftdi":
             "--cable=ftdi@digilent",
             "--chip=gap",
             "--boot-mode=jtag",
-            "--binary", "$SOURCE",
-            "load", "start", "wait"
+            "--binary", "$SOURCE"
         ],
         UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS'
     )
@@ -126,9 +126,9 @@ if upload_protocol == "ftdi":
     if data_available:
         env.Append(
             UPLOADERFLAGS=[
-                "--flash-image=", join("$BUILD_DIR", "data.bin"),
-                "flash",
-                "--flasher", join("$BUILD_DIR", "flasher.elf")
+                "--flash-image", target_firm,
+                "--flasher", target_flasher,
+                "flash"
             ]
         )
 
