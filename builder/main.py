@@ -73,14 +73,15 @@ env.Append(
 data_available = isdir(util.get_projectdata_dir()) and listdir(
     util.get_projectdata_dir())
 
-if data_available:
-    target_flasher = env.SConscript("flasher.py", exports="env")
-
+envbefore = env.Clone()
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
 else:
     target_elf = env.BuildProgram()
+    if data_available:
+        target_flasher = env.SConscript(
+            "flasher.py", exports={"env": env if "pulp-os" in env.get("PIOFRAMEWORK") else envbefore})
 
 if data_available:
     target_firm = env.DataToBin(join("$BUILD_DIR", "data"), target_elf)

@@ -22,7 +22,8 @@ fenv = env.Clone()
 SDK_DIR = fenv.PioPlatform().get_package_dir("framework-gap_sdk")
 assert SDK_DIR and isdir(SDK_DIR)
 
-SConscript("frameworks/pulp-os.py", exports={"env": fenv})
+if "pulp-os" not in env.get("PIOFRAMEWORK"):
+    SConscript("frameworks/pulp-os.py", exports={"env": fenv})
 
 fenv.Append(
     CPPDEFINES=["fileIO"],
@@ -32,6 +33,8 @@ fenv.Append(
         "-T", join(SDK_DIR, "tools", "ld", "gapuino.conf.ld")
     ]
 )
+
+fenv.Replace(AS="$CC", ASCOM="$ASPPCOM")
 
 flash = fenv.Program(
     join("$BUILD_DIR", "flasher"),
