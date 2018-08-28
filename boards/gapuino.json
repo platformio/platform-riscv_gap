@@ -37,6 +37,7 @@
             "--binary",
             "$PROG_PATH",
             "ioloop",
+            "load",
             "start",
             "gdb",
             "wait"
