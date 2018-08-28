@@ -17,6 +17,7 @@ from os.path import isdir, join
 from SCons.Script import Import, Return, SConscript
 
 Import("env")
+
 fenv = env.Clone()
 SDK_DIR = fenv.PioPlatform().get_package_dir("framework-gap_sdk")
 assert SDK_DIR and isdir(SDK_DIR)
@@ -35,7 +36,7 @@ fenv.Append(
 
 fenv.Replace(AS="$CC", ASCOM="$ASPPCOM")
 
-flasher = fenv.Program(
+flash = fenv.Program(
     join("$BUILD_DIR", "flasher"),
     fenv.CollectBuildFiles(
         join("$BUILD_DIR", "flasherapp"),
@@ -43,4 +44,4 @@ flasher = fenv.Program(
         src_filter="+<*> -<test_FlashImg>"
     ))
 
-Return("flasher")
+Return("flash")

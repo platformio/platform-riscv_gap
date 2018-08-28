@@ -82,8 +82,10 @@ else:
     if data_available:
         target_flasher = env.SConscript(
             "flasher.py",
-            exports={"env": env if "pulp-os" in env.get("PIOFRAMEWORK") else envbefore}
-        )
+            exports={
+                "env": env
+                if "pulp-os" in env.get("PIOFRAMEWORK") else envbefore
+            })
 
 if data_available:
     target_firm = env.DataToBin(join("$BUILD_DIR", "data"), target_elf)
@@ -121,7 +123,7 @@ if upload_protocol == "ftdi":
             "--cable=ftdi@digilent",
             "--chip=gap",
             "--boot-mode=jtag",
-            "--binary", target_elf
+            "--binary", "$SOURCE"
         ],
         UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS'
     )
@@ -135,7 +137,7 @@ if upload_protocol == "ftdi":
             ]
         )
 
-    env.Append(UPLOADERFLAGS=["load", "ioloop", "start", "wait"])
+    env.Append(UPLOADERFLAGS=["load", "start", "wait"])
 
     upload_actions = [
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
