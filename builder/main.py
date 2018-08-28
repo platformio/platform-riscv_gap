@@ -73,17 +73,19 @@ env.Append(
 data_available = isdir(util.get_projectdata_dir()) and listdir(
     util.get_projectdata_dir())
 
-if data_available:
-    target_flasher = env.SConscript("flasher.py", exports="env")
-
+envbefore = env.Clone()
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
 else:
     target_elf = env.BuildProgram()
+    if data_available:
+        target_flasher = env.SConscript(
+            "flasher.py", exports={"env": env if "pulp-os" in env.get("PIOFRAMEWORK") else envbefore})
 
 if data_available:
     target_firm = env.DataToBin(join("$BUILD_DIR", "data"), target_elf)
+    env.Depends(target_firm, target_flasher)
 else:
     target_firm = target_elf
 
@@ -117,8 +119,7 @@ if upload_protocol == "ftdi":
             "--cable=ftdi@digilent",
             "--chip=gap",
             "--boot-mode=jtag",
-            "--binary", "$SOURCE",
-            "load", "start", "wait"
+            "--binary", "$SOURCE"
         ],
         UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS'
     )
@@ -126,9 +127,9 @@ if upload_protocol == "ftdi":
     if data_available:
         env.Append(
             UPLOADERFLAGS=[
-                "--flash-image=", join("$BUILD_DIR", "data.bin"),
-                "flash",
-                "--flasher", join("$BUILD_DIR", "flasher.elf")
+                "--flash-image", target_firm,
+                "--flasher", target_flasher,
+                "flash"
             ]
         )
 
