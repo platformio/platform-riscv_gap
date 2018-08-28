@@ -123,7 +123,7 @@ if upload_protocol == "ftdi":
             "--cable=ftdi@digilent",
             "--chip=gap",
             "--boot-mode=jtag",
-            "--binary", "$SOURCE"
+            "--binary", target_elf
         ],
         UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS'
     )
