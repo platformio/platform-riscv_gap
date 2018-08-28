@@ -8,6 +8,7 @@
     "variant": "GAP8"
   },
   "debug": {
+    "svd_path": "GAP8.svd",
     "tools": {
       "ftdi": {
         "init_cmds": [
