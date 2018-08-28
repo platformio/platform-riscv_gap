@@ -46,7 +46,7 @@ fenv.Append(
 
 fenv.Replace(AS="$CC", ASCOM="$ASPPCOM")
 
-flash = fenv.Program(
+flasher = fenv.Program(
     join("$BUILD_DIR", "flasher"),
     fenv.CollectBuildFiles(
         join("$BUILD_DIR", "flasherapp"),
@@ -54,4 +54,4 @@ flash = fenv.Program(
         src_filter="+<*> -<test_FlashImg>"
     ))
 
-Return("flash")
+Return("flasher")
