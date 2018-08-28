@@ -26,8 +26,18 @@ if "pulp-os" not in env.get("PIOFRAMEWORK"):
     SConscript("frameworks/pulp-os.py", exports={"env": fenv})
 
 fenv.Append(
-    CPPDEFINES=["fileIO"],
-    CCFLAGS=["-O3"],
+    CPPDEFINES=[
+        "fileIO"
+    ],
+
+    CCFLAGS=[
+        "-O3"
+    ],
+
+    CPPPATH=[
+        join(SDK_DIR, "tools", "gap_flasher", "include")
+    ],
+
     LINKFLAGS=[
         "-O3",
         "-T", join(SDK_DIR, "tools", "ld", "gapuino.conf.ld")
