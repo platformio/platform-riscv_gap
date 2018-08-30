@@ -26,7 +26,9 @@ platform = env.PioPlatform()
 board_config = env.BoardConfig()
 
 SDK_DIR = platform.get_package_dir("framework-gap_sdk")
+PULP_TOOLS_DIR = platform.get_package_dir("tool-pulp_tools")
 assert SDK_DIR and isdir(SDK_DIR)
+assert PULP_TOOLS_DIR and isdir(PULP_TOOLS_DIR)
 
 env.Replace(
     AR="riscv32-unknown-elf-gcc-ar",
@@ -56,7 +58,7 @@ env.Append(
         DataToBin=Builder(
             action=env.VerboseAction(" ".join([
                 "$PYTHONEXE",
-                join(SDK_DIR, "tools", "gap_flasher", "bin", "flashImageBuilder"),
+                join(PULP_TOOLS_DIR, "bin", "flashImageBuilder"),
                 "--flash-boot-binary", "$SOURCES",
                 "--comp-dir-rec=%s" % util.get_projectdata_dir(),
                 "--raw", "$TARGET"
@@ -73,23 +75,14 @@ env.Append(
 data_available = isdir(util.get_projectdata_dir()) and listdir(
     util.get_projectdata_dir())
 
-envbefore = env.Clone()
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
 else:
     target_elf = env.BuildProgram()
-    if data_available:
-        target_flasher = env.SConscript(
-            "flasher.py",
-            exports={
-                "env": env
-                if "pulp-os" in env.get("PIOFRAMEWORK") else envbefore
-            })
 
 if data_available:
     target_firm = env.DataToBin(join("$BUILD_DIR", "data"), target_elf)
-    env.Depends(target_firm, target_flasher)
 else:
     target_firm = target_elf
 
@@ -115,8 +108,7 @@ upload_actions = []
 
 if upload_protocol == "ftdi":
     env.Replace(
-        UPLOADER=join(
-            platform.get_package_dir("tool-pulp-debug-bridge") or "", "bin", "plpbridge"),
+        UPLOADER=join(PULP_TOOLS_DIR, "bin", "plpbridge"),
         UPLOADERFLAGS=[
             "--debug",
             "--verbose=3",
@@ -132,7 +124,7 @@ if upload_protocol == "ftdi":
         env.Append(
             UPLOADERFLAGS=[
                 "--flash-image", target_firm,
-                "--flasher", target_flasher,
+                "--flasher", join(PULP_TOOLS_DIR, "bin", "flasher"),
                 "flash"
             ]
         )

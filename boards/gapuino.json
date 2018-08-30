@@ -43,7 +43,7 @@
             "wait"
           ],
           "executable": "$PYTHONEXE",
-          "package": "tool-pulp-debug-bridge"
+          "package": "tool-pulp_tools"
         }
       }
     }

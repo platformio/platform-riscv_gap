@@ -36,7 +36,7 @@
       "type": "toolchain",
       "version": "~1.70101.0"
     },
-    "tool-pulp-debug-bridge": {
+    "tool-pulp_tools": {
       "type": "uploader",
       "version": "~0.1.0"
     }
