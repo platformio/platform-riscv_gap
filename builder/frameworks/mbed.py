@@ -19,6 +19,6 @@ from SCons.Script import Import, SConscript
 Import("env")
 
 SConscript(
-    join(env.PioPlatform().get_package_dir("framework-gap_sdk"), "tools",
-         "platformio", "build-mbed.py"),
+    join(env.PioPlatform().get_package_dir("framework-gap_sdk"), "PlatformIO",
+         "build-mbed.py"),
     exports={"env": env})

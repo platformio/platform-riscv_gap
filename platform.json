@@ -30,7 +30,7 @@
   "packages": {
     "framework-gap_sdk": {
       "type": "framework",
-      "version": "https://github.com/pioplus/gap_sdk"
+      "version": "https://github.com/GreenWaves-Technologies/gap_sdk.git"
     },
     "toolchain-riscv-pulp": {
       "type": "toolchain",
