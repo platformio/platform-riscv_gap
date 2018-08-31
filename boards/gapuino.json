@@ -32,7 +32,6 @@
             "--verbose=0",
             "--chip=gap",
             "--cable=ftdi@digilent",
-            "--debug",
             "--boot-mode=jtag",
             "--binary",
             "$PROG_PATH",
