@@ -81,8 +81,14 @@ if "nobuild" in COMMAND_LINE_TARGETS:
 else:
     target_elf = env.BuildProgram()
 
-if data_available:
+if "uploadfs" in COMMAND_LINE_TARGETS:
+    data_dir = util.get_projectdata_dir()
+    if not (isdir(data_dir) and listdir(data_dir)):
+        sys.stderr.write(
+            "Please create `data` directory in a project and put some files\n")
+        env.Exit(1)
     target_firm = env.DataToBin(join("$BUILD_DIR", "data"), target_elf)
+    AlwaysBuild(env.Alias("buildfs", target_firm))
 else:
     target_firm = target_elf
 
@@ -114,13 +120,13 @@ if upload_protocol == "ftdi":
             "--verbose=3",
             "--cable=ftdi@digilent",
             "--chip=gap",
-            "--boot-mode=jtag",
+            "--boot-mode=%s" % board_config.get("upload.boot_mode"),
             "--binary", target_elf
         ],
         UPLOADCMD='"$PYTHONEXE" $UPLOADER $UPLOADERFLAGS'
     )
 
-    if data_available:
+    if "uploadfs" in COMMAND_LINE_TARGETS:
         env.Append(
             UPLOADERFLAGS=[
                 "--flash-image", target_firm,
@@ -129,11 +135,12 @@ if upload_protocol == "ftdi":
             ]
         )
 
-    env.Append(UPLOADERFLAGS=["load", "start", "wait"])
+    env.Append(UPLOADERFLAGS=[
+        c.strip() for c in board_config.get("upload.commands").split(" ")
+        if c.strip()
+    ])
 
-    upload_actions = [
-        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
-    ]
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 # custom upload tool
 elif "UPLOADCMD" in env:
@@ -142,7 +149,7 @@ elif "UPLOADCMD" in env:
 else:
     sys.stderr.write("Warning! Unknown upload protocol %s\n" % upload_protocol)
 
-AlwaysBuild(env.Alias("upload", target_firm, upload_actions))
+AlwaysBuild(env.Alias(["upload", "uploadfs"], target_firm, upload_actions))
 
 #
 # Setup default targets
