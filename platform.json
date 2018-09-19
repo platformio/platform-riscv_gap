@@ -1,9 +1,9 @@
 {
   "name": "riscv_gap",
   "title": "RISC-V GAP",
-  "description": "GreenWaves’ GAP8 IoT application processor enables the cost-effective development, deployment and autonomous operation of intelligent sensing devices that capture, analyze, classify and act on the fusion of rich data sources such as images, sounds or vibrations.",
+  "description": "GreenWaves GAP8 IoT application processor enables the cost-effective development, deployment and autonomous operation of intelligent sensing devices that capture, analyze, classify and act on the fusion of rich data sources such as images, sounds or vibrations.",
   "url": "https://greenwaves-technologies.com/en/gap8-product/",
-  "homepage": "http://platformio.org/platforms/riscv_gap",
+  "homepage": "https://platformio.org/platforms/riscv_gap",
   "license": "Apache-2.0",
   "engines": {
     "platformio": "^3.0.0"
