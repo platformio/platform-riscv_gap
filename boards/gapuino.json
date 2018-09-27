@@ -1,0 +1,64 @@
+{
+  "build": {
+    "extra_flags": "-D__GAP8__",
+    "f_cpu": "250000000L",
+    "ldscript": "GAP8.ld",
+    "march": "rv32imcxgap8",
+    "target": "GWT",
+    "variant": "GAP8"
+  },
+  "debug": {
+    "svd_path": "GAP8.svd",
+    "tools": {
+      "ftdi": {
+        "init_cmds": [
+          "define pio_reset_halt_target",
+          "    monitor reset halt",
+          "end",
+          "define pio_reset_target",
+          "    monitor reset",
+          "end",
+          "target remote $DEBUG_PORT",
+          "$INIT_BREAK",
+          "$LOAD_CMD",
+          "pio_reset_halt_target"
+        ],
+        "load_cmd": " ",
+        "onboard": true,
+        "port": ":1234",
+        "server": {
+          "arguments": [
+            "bin/plpbridge",
+            "--verbose=0",
+            "--chip=gap",
+            "--cable=ftdi@digilent",
+            "--boot-mode=jtag",
+            "--binary",
+            "$PROG_PATH",
+            "ioloop",
+            "load",
+            "start",
+            "gdb",
+            "wait"
+          ],
+          "executable": "$PYTHONEXE",
+          "package": "tool-pulp_tools"
+        }
+      }
+    }
+  },
+  "frameworks": [
+    "mbed",
+    "pulp-os"
+  ],
+  "name": "GAPUINO GAP8 development board",
+  "upload": {
+    "boot_mode": "jtag",
+    "commands": "load reqloop ioloop start wait",
+    "maximum_ram_size": 8388608,
+    "maximum_size": 67108864,
+    "protocol": "ftdi"
+  },
+  "url": "https://greenwaves-technologies.com/product/gapduino/",
+  "vendor": "GreenWaves Technologies"
+}
