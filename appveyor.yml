@@ -2,7 +2,7 @@ build: off
 environment:
 
   matrix:
-    - PLATFORMIO_PROJECT_DIR: "examples/gapuino-mbed-autotiler-cifar10"
+    # - PLATFORMIO_PROJECT_DIR: "examples/gapuino-mbed-autotiler-cifar10"
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-mbed-driver-cpp-raw-serial"
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-mbed-driver-hyper-flash"
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-mbed-driver-hyper-rtc-alarm"
@@ -13,8 +13,8 @@ environment:
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-mbed-matadd"
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-mbed-os-irq"
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-mbed-os-memory-pool"
-    - PLATFORMIO_PROJECT_DIR: "examples/gapuino-pulp-os-autotiler-bilinear-resize"
-    - PLATFORMIO_PROJECT_DIR: "examples/gapuino-pulp-os-autotiler-cifar10"
+    # - PLATFORMIO_PROJECT_DIR: "examples/gapuino-pulp-os-autotiler-bilinear-resize"
+    # - PLATFORMIO_PROJECT_DIR: "examples/gapuino-pulp-os-autotiler-cifar10"
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-pulp-os-filesystem"
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-pulp-os-hello-world"
     - PLATFORMIO_PROJECT_DIR: "examples/gapuino-pulp-os-i2c-eeprom"
