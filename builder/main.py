@@ -17,7 +17,7 @@ from os import listdir
 from os.path import isdir, join
 
 from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
-                          DefaultEnvironment)
+                          DefaultEnvironment, SConscript)
 
 from platformio import util
 
@@ -67,6 +67,12 @@ env.Append(
         )
     )
 )
+
+#
+# Autotiler
+#
+
+SConscript("autotiler.py", exports={"env": env})
 
 #
 # Target: Build executable, linkable firmware and data image
