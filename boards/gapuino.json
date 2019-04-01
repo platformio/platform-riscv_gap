@@ -5,7 +5,8 @@
     "ldscript": "GAP8.ld",
     "march": "rv32imcxgap8",
     "target": "GWT",
-    "variant": "GAP8"
+    "variant": "GAP8",
+    "mcu": "gap8"
   },
   "debug": {
     "svd_path": "GAP8.svd",
@@ -51,7 +52,7 @@
     "mbed",
     "pulp-os"
   ],
-  "name": "GAPUINO GAP8 development board",
+  "name": "GAPuino GAP8",
   "upload": {
     "boot_mode": "jtag",
     "commands": "load reqloop ioloop start wait",
