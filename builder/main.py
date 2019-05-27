@@ -60,7 +60,7 @@ env.Append(
                 "$PYTHONEXE",
                 join(PULP_TOOLS_DIR, "bin", "flashImageBuilder"),
                 "--flash-boot-binary", "$SOURCES",
-                "--comp-dir-rec=%s" % util.get_projectdata_dir(),
+                "--comp-dir-rec", "$PROJECTDATA_DIR",
                 "--raw", "$TARGET"
             ]), "Building data image $TARGET"),
             suffix=".bin"
@@ -78,9 +78,6 @@ SConscript("autotiler.py", exports={"env": env})
 # Target: Build executable, linkable firmware and data image
 #
 
-data_available = isdir(util.get_projectdata_dir()) and listdir(
-    util.get_projectdata_dir())
-
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
@@ -88,7 +85,7 @@ else:
     target_elf = env.BuildProgram()
 
 if "uploadfs" in COMMAND_LINE_TARGETS:
-    data_dir = util.get_projectdata_dir()
+    data_dir = env.subst("$PROJECTDATA_DIR")
     if not (isdir(data_dir) and listdir(data_dir)):
         sys.stderr.write(
             "Please create `data` directory in a project and put some files\n")
