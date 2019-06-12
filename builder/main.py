@@ -19,7 +19,6 @@ from os.path import isdir, join
 from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
                           DefaultEnvironment, SConscript)
 
-from platformio import util
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
