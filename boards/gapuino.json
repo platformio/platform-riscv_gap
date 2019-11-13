@@ -16,13 +16,13 @@
           "define pio_reset_halt_target",
           "    monitor reset halt",
           "end",
-          "define pio_reset_target",
+          "define pio_reset_run_target",
           "    monitor reset",
           "end",
           "target remote $DEBUG_PORT",
-          "$INIT_BREAK",
-          "$LOAD_CMD",
-          "pio_reset_halt_target"
+          "$LOAD_CMDS",
+          "pio_reset_halt_target",
+          "$INIT_BREAK"
         ],
         "load_cmd": " ",
         "onboard": true,
