@@ -90,10 +90,10 @@ if "uploadfs" in COMMAND_LINE_TARGETS:
             "Please create `data` directory in a project and put some files\n")
         env.Exit(1)
     target_firm = env.DataToBin(join("$BUILD_DIR", "data"), target_elf)
-    AlwaysBuild(env.Alias("buildfs", target_firm))
 else:
     target_firm = target_elf
 
+env.AddPlatformTarget("buildfs", target_firm, None, "Build Filesystem Image")
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 
@@ -101,10 +101,13 @@ target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 # Target: Print binary size
 #
 
-target_size = env.Alias(
-    "size", target_elf,
-    env.VerboseAction("$SIZEPRINTCMD", "Calculating size $SOURCE"))
-AlwaysBuild(target_size)
+target_size = env.AddPlatformTarget(
+    "size",
+    target_elf,
+    env.VerboseAction("$SIZEPRINTCMD", "Calculating size $SOURCE"),
+    "Program Size",
+    "Calculate program size",
+)
 
 #
 # Target: Upload by default .img file
@@ -151,7 +154,9 @@ elif upload_protocol == "custom":
 else:
     sys.stderr.write("Warning! Unknown upload protocol %s\n" % upload_protocol)
 
-AlwaysBuild(env.Alias(["upload", "uploadfs"], target_firm, upload_actions))
+env.AddPlatformTarget("upload", target_firm, upload_actions, "Upload")
+env.AddPlatformTarget(
+    "uploadfs", target_firm, upload_actions, "Upload Filesystem Image")
 
 #
 # Setup default targets
