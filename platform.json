@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pioplus/platform-riscv_gap.git"
+    "url": "https://github.com/platformio/platform-riscv_gap.git"
   },
   "version": "1.0.2",
   "packageRepositories": [
