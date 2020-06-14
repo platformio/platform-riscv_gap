@@ -5,12 +5,12 @@
 GreenWaves' GAP8 IoT application processor enables the cost-effective development, deployment and autonomous operation of intelligent sensing devices that capture, analyze, classify and act on the fusion of rich data sources such as images, sounds or vibrations.
 
 * [Home](http://platformio.org/platforms/riscv_gap) (home page in PlatformIO Platform Registry)
-* [Documentation](http://docs.platformio.org/page/platforms/riscv_gap.html) (advanced usage, packages, boards, frameworks, etc.)
+* [Documentation](https://docs.platformio.org/page/platforms/riscv_gap.html) (advanced usage, packages, boards, frameworks, etc.)
 
 # Usage
 
 1. [Install PlatformIO](http://platformio.org)
-2. Create PlatformIO project and configure a platform option in [platformio.ini](http://docs.platformio.org/page/projectconf.html) file:
+2. Create PlatformIO project and configure a platform option in [platformio.ini](https://docs.platformio.org/page/projectconf.html) file:
 
 ## Stable version
 
@@ -32,4 +32,4 @@ board = ...
 
 # Configuration
 
-Please navigate to [documentation](http://docs.platformio.org/page/platforms/riscv_gap.html).
+Please navigate to [documentation](https://docs.platformio.org/page/platforms/riscv_gap.html).
