@@ -24,7 +24,10 @@
     },
     "pulp-os": {
       "package": "framework-gap_sdk",
-      "script": "builder/frameworks/pulp-os.py"
+      "script": "builder/frameworks/pulp-os.py",
+      "description": "PULP is a silicon-proven Parallel Ultra Low Power platform targeting high energy efficiencies. The platform is organized in clusters of RISC-V cores that share a tightly-coupled data memory",
+      "url": "https://www.pulp-platform.org",
+      "title": "PULP OS"
     }
   },
   "packages": {
