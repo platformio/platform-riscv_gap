@@ -2,9 +2,14 @@
   "name": "riscv_gap",
   "title": "RISC-V GAP",
   "description": "GreenWaves GAP8 IoT application processor enables the cost-effective development, deployment and autonomous operation of intelligent sensing devices that capture, analyze, classify and act on the fusion of rich data sources such as images, sounds or vibrations.",
-  "url": "https://greenwaves-technologies.com/en/gap8-product/",
-  "homepage": "https://platformio.org/platforms/riscv_gap",
+  "homepage": "https://greenwaves-technologies.com/en/gap8-product/",
   "license": "Apache-2.0",
+  "keywords": [
+      "dev-platform",
+      "GreenWaves",
+      "GAP8",
+      "RISC-V"
+  ],
   "engines": {
     "platformio": "<5"
   },
@@ -12,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-riscv_gap.git"
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json"
@@ -26,7 +31,7 @@
       "package": "framework-gap_sdk",
       "script": "builder/frameworks/pulp-os.py",
       "description": "PULP is a silicon-proven Parallel Ultra Low Power platform targeting high energy efficiencies. The platform is organized in clusters of RISC-V cores that share a tightly-coupled data memory",
-      "url": "https://www.pulp-platform.org",
+      "homepage": "https://www.pulp-platform.org",
       "title": "PULP OS"
     }
   },
