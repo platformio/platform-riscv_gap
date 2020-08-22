@@ -19,7 +19,7 @@ from os.path import basename, dirname, isdir, isfile, getmtime, join, relpath
 
 from SCons.Script import ARGUMENTS, Import
 
-from platformio import util
+from platformio import fs
 from platformio.builder.tools.platformio import SRC_FILTER_DEFAULT
 
 try:
@@ -84,7 +84,7 @@ def find_model(src_dir):
 
 def build_autotiler(build_dir, generator, model_path):
     if isdir(build_dir):
-        util.rmtree_(build_dir)
+        fs.rmtree(build_dir)
 
     # parse custom library path from `platformio.ini`
     tmpenv = env.Clone()
@@ -145,7 +145,7 @@ def generate_user_kernel(kernel_user_dir, program_path):
     args = [program_path]
     if "pulp-os" not in env.subst("$PIOFRAMEWORK"):
         args.append("-m")
-    with util.cd(kernel_user_dir):
+    with fs.cd(kernel_user_dir):
         env.Execute(env.VerboseAction(" ".join(args), "Running AutoTiler"))
     print("")
 
