@@ -22,11 +22,6 @@ from SCons.Script import ARGUMENTS, Import
 from platformio import fs
 from platformio.builder.tools.platformio import SRC_FILTER_DEFAULT
 
-try:
-    from platformio.project.helpers import get_project_lib_dir
-except ImportError:
-    from platformio.util import get_projectlib_dir as get_project_lib_dir
-
 
 Import("env")
 
@@ -99,7 +94,7 @@ def build_autotiler(build_dir, generator, model_path):
                  "include")
         ],
         LIBPATH=[join(AUTOTILER_DIR, "lib"),
-                 get_project_lib_dir()] + tmpenv.get("LIBPATH", []),
+                 env.GetProjectConfig().get("platformio", "lib_dir")] + tmpenv.get("LIBPATH", []),
         LIBS=["tile"])
 
     # CHECK "libtile.a"
