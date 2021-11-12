@@ -11,17 +11,13 @@
       "RISC-V"
   ],
   "engines": {
-    "platformio": "<5"
+    "platformio": "^5"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/platformio/platform-riscv_gap.git"
   },
-  "version": "1.0.4",
-  "packageRepositories": [
-    "https://dl.bintray.com/platformio/dl-packages/manifest.json",
-    "http://dl.platformio.org/packages/manifest.json"
-  ],
+  "version": "1.0.5",
   "frameworks": {
     "mbed": {
       "package": "framework-gap_sdk",
@@ -38,14 +34,17 @@
   "packages": {
     "framework-gap_sdk": {
       "type": "framework",
+      "owner": "platformio",
       "version": "~2.0.0"
     },
     "toolchain-riscv-pulp": {
       "type": "toolchain",
+      "owner": "platformio",
       "version": "~1.70101.0"
     },
     "tool-pulp_tools": {
       "type": "uploader",
+      "owner": "platformio",
       "version": "~0.1.0"
     }
   }
