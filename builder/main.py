@@ -60,7 +60,7 @@ env.Append(
                 "$PYTHONEXE",
                 join(PULP_TOOLS_DIR, "bin", "flashImageBuilder"),
                 "--flash-boot-binary", "$SOURCES",
-                "--comp-dir-rec", "$PROJECTDATA_DIR",
+                "--comp-dir-rec", "$PROJECT_DATA_DIR",
                 "--raw", "$TARGET"
             ]), "Building data image $TARGET"),
             suffix=".bin"
@@ -85,7 +85,7 @@ else:
     target_elf = env.BuildProgram()
 
 if "uploadfs" in COMMAND_LINE_TARGETS:
-    data_dir = env.subst("$PROJECTDATA_DIR")
+    data_dir = env.subst("$PROJECT_DATA_DIR")
     if not (isdir(data_dir) and listdir(data_dir)):
         sys.stderr.write(
             "Please create `data` directory in a project and put some files\n")
