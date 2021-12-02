@@ -146,7 +146,7 @@ def generate_user_kernel(kernel_user_dir, program_path):
 
 
 def main():
-    model = find_model(env.subst("$PROJECTSRC_DIR"))
+    model = find_model(env.subst("$PROJECT_SRC_DIR"))
     if not model:
         return
 
