@@ -1,6 +1,6 @@
 # RISC-V GAP: development platform for [PlatformIO](https://platformio.org)
-[![Build Status](https://travis-ci.org/platformio/platform-riscv_gap.svg?branch=develop)](https://travis-ci.org/platformio/platform-riscv_gap)
-[![Build status](https://ci.appveyor.com/api/projects/status/am41upkan8876k05/branch/develop?svg=true)](https://ci.appveyor.com/project/platformio/platform-riscv-gap)
+
+[![Build Status](https://github.com/platformio/platform-riscv_gap/workflows/Examples/badge.svg)](https://github.com/platformio/platform-riscv_gap/actions)
 
 GreenWaves' GAP8 IoT application processor enables the cost-effective development, deployment and autonomous operation of intelligent sensing devices that capture, analyze, classify and act on the fusion of rich data sources such as images, sounds or vibrations.
 
