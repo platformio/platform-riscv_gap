@@ -12,21 +12,21 @@
 How to build PlatformIO based project
 =====================================
 
-1. `Install PlatformIO Core <http://docs.platformio.org/page/core.html>`_
-2. Download `development platform with examples <https://github.com/pioplus/platform-riscv_gap/archive/develop.zip>`_
+1. [Install PlatformIO Core](https://docs.platformio.org/page/core.html)
+2. Download [development platform with examples](https://github.com/pioplus/platform-riscv_gap/archive/develop.zip)
 3. Extract ZIP archive
 4. Run these commands:
 
-.. code-block:: bash
+```shell
+# Change directory to example
+$ cd platform-riscv_gap/examples/gapuino-mbed-driver-hyper-rtc-alarm
 
-    # Change directory to example
-    > cd platform-riscv_gap/examples/gapuino-pulp-os-hello-world
+# Build project
+$ pio run
 
-    # Build project
-    > platformio run
+# Upload firmware
+$ pio run --target upload
 
-    # Upload firmware
-    > platformio run --target upload
-
-    # Clean build files
-    > platformio run --target clean
+# Clean build files
+$ pio run --target clean
+```

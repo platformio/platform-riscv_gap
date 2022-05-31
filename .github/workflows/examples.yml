@@ -1,0 +1,44 @@
+name: Examples
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        example:
+          # - "examples/gapuino-mbed-autotiler-cifar10"
+          - "examples/gapuino-mbed-driver-cpp-raw-serial"
+          - "examples/gapuino-mbed-driver-hyper-flash"
+          - "examples/gapuino-mbed-driver-hyper-rtc-alarm"
+          - "examples/gapuino-mbed-events-queue"
+          - "examples/gapuino-mbed-features-cluster-dma"
+          - "examples/gapuino-mbed-features-filesystem"
+          - "examples/gapuino-mbed-fft2d"
+          - "examples/gapuino-mbed-matadd"
+          - "examples/gapuino-mbed-os-irq"
+          - "examples/gapuino-mbed-os-memory-pool"
+          # - "examples/gapuino-pulp-os-autotiler-bilinear-resize"
+          # - "examples/gapuino-pulp-os-autotiler-cifar10"
+          - "examples/gapuino-pulp-os-filesystem"
+          - "examples/gapuino-pulp-os-hello-world"
+          - "examples/gapuino-pulp-os-i2c-eeprom"
+          - "examples/gapuino-pulp-os-kernel-dma"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: "recursive"
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        run: |
+          pip install -U https://github.com/platformio/platformio/archive/develop.zip
+          pio pkg install --global --platform symlink://.
+      - name: Build examples
+        run: |
+          pio run -d ${{ matrix.example }}

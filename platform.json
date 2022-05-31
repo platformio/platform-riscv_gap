@@ -11,13 +11,13 @@
       "RISC-V"
   ],
   "engines": {
-    "platformio": "^5"
+    "platformio": "^6"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/platformio/platform-riscv_gap.git"
   },
-  "version": "1.0.5",
+  "version": "1.1.0",
   "frameworks": {
     "mbed": {
       "package": "framework-gap_sdk",
