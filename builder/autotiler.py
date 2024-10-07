@@ -20,7 +20,7 @@ from os.path import basename, dirname, isdir, isfile, getmtime, join, relpath
 from SCons.Script import ARGUMENTS, Import
 
 from platformio import fs
-from platformio.builder.tools.platformio import SRC_FILTER_DEFAULT
+from platformio.builder.tools.piobuild import SRC_FILTER_DEFAULT
 
 
 Import("env")
